@@ -1,3 +1,5 @@
+package vladimir.homework;
+
 import vladimir.homework.products.*;
 
 import java.text.DateFormat;

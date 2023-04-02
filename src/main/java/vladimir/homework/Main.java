@@ -1,3 +1,6 @@
+package vladimir.homework;
+
+import vladimir.homework.Shop;
 import vladimir.homework.products.Food;
 import vladimir.homework.products.Phone;
 import vladimir.homework.products.Toy;

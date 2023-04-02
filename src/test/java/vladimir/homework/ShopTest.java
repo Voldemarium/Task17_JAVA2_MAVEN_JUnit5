@@ -1,3 +1,6 @@
+package vladimir.homework;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,13 +46,13 @@ class ShopTest {
         products.put(product7, 1);
         shop.setProducts(products);
         Shop expected1 = shop;
-        assertEquals(expected1, actual1);
+        Assertions.assertEquals(expected1, actual1);
 
         Shop actual2 = shop.addProduct(product1, 3);
         products.put(product1, 3);
         shop.setProducts(products);
         Shop expected2 = shop;
-        assertEquals(expected2, actual2);
+        Assertions.assertEquals(expected2, actual2);
     }
 
     @Test
@@ -60,14 +63,14 @@ class ShopTest {
         products.remove(product1);
         shop.setProducts(products);
         Shop expected1 = shop;
-        assertEquals(expected1, actual1);
+        Assertions.assertEquals(expected1, actual1);
 
         shop.deleteProduct(product2.getName(), 1);
         Shop actual2 = shop;
         products.put(product2, 1);
         shop.setProducts(products);
         Shop expected2 = shop;
-        assertEquals(expected2, actual2);
+        Assertions.assertEquals(expected2, actual2);
     }
 
     @Test
