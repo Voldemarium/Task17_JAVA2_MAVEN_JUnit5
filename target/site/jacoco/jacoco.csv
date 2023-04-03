@@ -1,0 +1,10 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Task17_JAVA2_MAVEN_JUnit5,vladimir.homework.products,Food,8,28,0,0,3,7,1,3,1,3
+Task17_JAVA2_MAVEN_JUnit5,vladimir.homework.products,ExceptionNoProduct,4,0,0,0,2,0,1,0,1,0
+Task17_JAVA2_MAVEN_JUnit5,vladimir.homework.products,Toy,8,11,0,0,3,4,1,2,1,2
+Task17_JAVA2_MAVEN_JUnit5,vladimir.homework.products,Phone,8,11,0,0,3,4,1,2,1,2
+Task17_JAVA2_MAVEN_JUnit5,vladimir.homework.products,Product,8,52,3,7,1,11,4,7,1,5
+Task17_JAVA2_MAVEN_JUnit5,vladimir.homework.products,SortProductByCost,9,24,3,5,3,7,2,4,0,2
+Task17_JAVA2_MAVEN_JUnit5,vladimir.homework.products,ExceptionNotCountProduct,4,0,0,0,2,0,1,0,1,0
+Task17_JAVA2_MAVEN_JUnit5,vladimir.homework,Shop,38,342,8,36,15,71,8,27,1,12
+Task17_JAVA2_MAVEN_JUnit5,vladimir.homework,Main,189,0,0,0,28,0,2,0,2,0

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Shop.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Task17_JAVA2_MAVEN_JUnit5</a> &gt; <a href="index.source.html" class="el_package">vladimir.homework</a> &gt; <span class="el_source">Shop.java</span></div><h1>Shop.java</h1><pre class="source lang-java linenums">package vladimir.homework;
+
+import vladimir.homework.products.*;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Shop {
+    private TreeMap&lt;Product, Integer&gt; products;
+
+<span class="fc" id="L13">    public Shop() {</span>
+<span class="fc" id="L14">        this.products = new TreeMap&lt;&gt;(new SortProductByCost());</span>
+<span class="fc" id="L15">    }</span>
+
+    public TreeMap&lt;Product, Integer&gt; getProducts() {
+<span class="fc" id="L18">        return products;</span>
+    }
+
+    public void setProducts(TreeMap&lt;Product, Integer&gt; products) {
+<span class="fc" id="L22">        this.products = products;</span>
+<span class="fc" id="L23">    }</span>
+
+    public Shop addProduct(Product product, int count) {
+<span class="fc" id="L26">        products.put(product, count);</span>
+<span class="fc" id="L27">        return this;</span>
+    }
+
+    public void deleteProduct(String name, int count) {
+        try {
+<span class="fc" id="L32">            boolean isProduct = false;</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">            for (Product product : products.keySet()) {</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">                if (product.getName().equals(name)) {</span>
+<span class="fc" id="L35">                    isProduct = true;</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">                    if (products.get(product) == count) {</span>
+//                        products.remove(product);
+<span class="fc" id="L38">                        System.out.println(&quot;delete: &quot; + products.remove(product));</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">                    } else if (products.get(product) &gt; count) {</span>
+<span class="fc" id="L40">                        products.put(product, products.get(product) - count);</span>
+                    } else {
+<span class="nc" id="L42">                        throw new ExceptionNotCountProduct();</span>
+                    }
+                    break;
+                }
+<span class="fc" id="L46">            }</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">            if (!isProduct) {</span>
+<span class="nc" id="L48">                throw new ExceptionNoProduct();</span>
+            }
+<span class="nc" id="L50">        } catch (ExceptionNoProduct | ExceptionNotCountProduct e) {</span>
+<span class="nc" id="L51">            e.printStackTrace();</span>
+<span class="fc" id="L52">        }</span>
+<span class="fc" id="L53">    }</span>
+
+    public int size() {
+<span class="fc" id="L56">        return products.size();</span>
+    }
+
+    public Product[] getProducts(int cost) {
+<span class="fc" id="L60">        List&lt;Product&gt; productsCostList = new LinkedList&lt;&gt;();</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        for (Product product : products.keySet()) {</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">            if (product.getPrice() &lt;= cost) {</span>
+<span class="fc" id="L63">                productsCostList.add(product);</span>
+            }
+<span class="fc" id="L65">        }</span>
+<span class="fc" id="L66">        Product[] productsCostArray = new Product[productsCostList.size()];</span>
+<span class="fc" id="L67">        productsCostList.toArray(productsCostArray);</span>
+<span class="fc" id="L68">        return productsCostArray;</span>
+    }
+
+    public boolean containsProduct(String name) {
+<span class="fc" id="L72">        boolean isProduct = false;</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        for (Product product : products.keySet()) {</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">            if (product.getName().toLowerCase().contains(name.toLowerCase())) {</span>
+<span class="fc" id="L75">                isProduct = true;</span>
+<span class="fc" id="L76">                break;</span>
+            }
+<span class="nc" id="L78">        }</span>
+<span class="fc" id="L79">        return isProduct;</span>
+    }
+
+    public Product findTheCheapest() {
+<span class="fc" id="L83">        return products.firstKey();</span>
+    }
+
+    public Phone[] findPhones(String maker) {
+<span class="fc" id="L87">        List&lt;Phone&gt; phonesList = new LinkedList&lt;&gt;();</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        for (Product product : products.keySet()) {</span>
+<span class="fc bfc" id="L89" title="All 4 branches covered.">            if (product instanceof Phone &amp;&amp; ((Phone) product).getMaker().equals(maker)) {</span>
+<span class="fc" id="L90">                phonesList.add((Phone) product);</span>
+            }
+<span class="fc" id="L92">        }</span>
+<span class="fc" id="L93">        Phone[] phones = new Phone[phonesList.size()];</span>
+<span class="fc" id="L94">        phonesList.toArray(phones);</span>
+<span class="fc" id="L95">        return phones;</span>
+    }
+
+    public &lt;T&gt; Toy[] findToys(T age) {
+<span class="fc" id="L99">        List&lt;Toy&gt; toyList = new LinkedList&lt;&gt;();</span>
+        try {
+<span class="fc bfc" id="L101" title="All 2 branches covered.">            for (Product product : products.keySet()) {</span>
+<span class="fc bfc" id="L102" title="All 4 branches covered.">                if (product instanceof Toy &amp;&amp; ((Toy) product).getAgeRestriction() &lt; Integer.parseInt(String.valueOf(age))) {</span>
+<span class="fc" id="L103">                    toyList.add((Toy) product);</span>
+                }
+<span class="fc" id="L105">            }</span>
+<span class="nc" id="L106">        } catch (ClassCastException | NumberFormatException e2) {</span>
+<span class="nc" id="L107">            e2.printStackTrace();</span>
+<span class="nc" id="L108">            System.out.println(&quot;This is not an integer!&quot;);</span>
+<span class="nc" id="L109">            return null;</span>
+<span class="fc" id="L110">        }</span>
+<span class="fc" id="L111">        Toy[] toys = new Toy[toyList.size()];</span>
+<span class="fc" id="L112">        toyList.toArray(toys);</span>
+<span class="fc" id="L113">        return toys;</span>
+    }
+
+    public &lt;T&gt; Food[] findFood(T date) {
+<span class="fc" id="L117">        Date dateFood = null;</span>
+<span class="fc" id="L118">        SimpleDateFormat formatter1 = new SimpleDateFormat(&quot;yyyy.MM.dd&quot;);</span>
+<span class="fc" id="L119">        SimpleDateFormat formatter2 = new SimpleDateFormat(&quot;E MMM dd HH:mm:ss z yyyy&quot;, Locale.ENGLISH);</span>
+<span class="fc" id="L120">        DateFormat[] dateFormats = {formatter1, formatter2};</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">        for (int i = 0; i &lt; dateFormats.length; i++) {</span>
+            try {
+<span class="fc" id="L123">                String dateStr = date.toString();</span>
+<span class="fc bfc" id="L124" title="All 4 branches covered.">                if (dateFormats[i] == formatter1 &amp;&amp; !dateStr.substring(0, 4).matches(&quot;\\d{4}&quot;)) {</span>
+<span class="fc" id="L125">                    continue;</span>
+                }
+<span class="fc" id="L127">                dateFood = dateFormats[i].parse(dateStr);</span>
+<span class="fc" id="L128">                break;</span>
+<span class="nc" id="L129">            } catch (ClassCastException | ParseException e) {</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">                if (i == dateFormats.length - 1) {</span>
+<span class="nc" id="L131">                    e.printStackTrace();</span>
+<span class="nc" id="L132">                    System.out.println(&quot;Invalid date format, please enter the format type \&quot;Date\&quot; or \&quot;yyyy.MM.dd\&quot; &quot; +</span>
+                            &quot;or \&quot;E MMM dd HH:mm:ss z yyyy, Locale.ENGLISH\&quot;!&quot;);
+<span class="nc" id="L134">                    return null;</span>
+                }
+            }
+        }
+<span class="fc" id="L138">        List&lt;Food&gt; foodList = new LinkedList&lt;&gt;();</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        for (Product product : products.keySet()) {</span>
+<span class="fc bfc" id="L140" title="All 4 branches covered.">            if (product instanceof Food &amp;&amp; ((Food) product).getDate().compareTo(dateFood) &gt; 0) {</span>
+<span class="fc" id="L141">                foodList.add((Food) product);</span>
+            }
+<span class="fc" id="L143">        }</span>
+<span class="fc" id="L144">        Food[] foods = new Food[foodList.size()];</span>
+<span class="fc" id="L145">        foodList.toArray(foods);</span>
+<span class="fc" id="L146">        return foods;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L151">        return &quot;Shop{&quot; +</span>
+                &quot;products=&quot; + products +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
